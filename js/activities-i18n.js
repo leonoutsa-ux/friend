@@ -1,0 +1,77 @@
+// Words for the "For you" activities (capsule, focus, quiz).
+const fr = {
+  btn: "✨ Pour toi", title: "Pour toi",
+  tiles: { garden: ["🌱", "Jardin d'humeur", "Ton humeur du jour devient une plante"], capsule: ["💌", "Capsule temporelle", "Un message pour ton toi du futur"], focus: ["🎯", "Mode Focus", "Concentre-toi, ton Friend avance avec toi"], quiz: ["🧠", "Quiz express", "Révise n'importe quel sujet en 5 questions"] },
+  back: "‹ Retour",
+  // Capsule
+  capTitle: "Capsule temporelle", capLead: "Écris à ton toi du futur. La capsule reste fermée jusqu'à la date choisie, même pour toi.",
+  capPh: "Cher moi du futur…", capWhen: "Ouvrir dans…", capWhens: [["7", "1 semaine"], ["30", "1 mois"], ["182", "6 mois"], ["365", "1 an"]], capDate: "ou à une date précise",
+  capSeal: "Sceller la capsule", capSealed: "Capsule scellée ! Rendez-vous le", capList: "Mes capsules", capNone: "Aucune capsule pour l'instant.",
+  capLocked: d => `Scellée · s'ouvre ${d}`, capOpen: "Ouvrir", capOpened: "Ouverte", capFrom: d => `Écrite le ${d}`, capReady: "Une capsule t'attend ! Ouvre-la dans ✨ Pour toi.",
+  capDelete: "Supprimer", capSure: "Sûr ?", inDays: n => n <= 1 ? "demain" : `dans ${n} jours`,
+  // Focus
+  focTitle: "Mode Focus", focLead: "Choisis une durée et lance-toi. Ton Friend traverse la carte pendant que tu travailles. Si tu quittes Friend, il s'arrête et t'attend.",
+  focLen: "Durée", focStart: "C'est parti", focPause: "Pause", focResume: "Reprendre", focStop: "Arrêter",
+  focWaiting: "Ton Friend t'attend… reviens quand tu veux.", focDone: n => `Bravo ! +${n} ⭐`, focStars: n => `${n} ⭐ gagnées`,
+  focUnlock: "Nouvel accessoire débloqué :", focNext: (n, a) => `Encore ${n} ⭐ pour débloquer : ${a}`, focAll: "Tu as débloqué tous les accessoires !",
+  focTodo: "Sur quoi tu travailles ? (optionnel)", focMinutes: m => `${m} min`,
+  // Quiz
+  quizTitle: "Quiz express", quizLead: "Écris un sujet ou colle tes notes de cours : Friend prépare 5 questions.",
+  quizPh: "Ex. : la photosynthèse, les fractions, l'histoire de Rome… ou colle tes notes", quizGo: "Créer le quiz",
+  quizMaking: "Friend prépare tes questions…", quizNext: "Question suivante", quizEnd: "Voir mon score", quizAgain: "Un autre quiz",
+  quizScore: (s, n) => `${s} / ${n}`, quizCheer: s => s >= 5 ? "Parfait, tu maîtrises !" : s >= 3 ? "Bien joué, encore un petit effort !" : "On révise encore un peu ensemble ?",
+  quizGood: "Bonne réponse !", quizBad: "Pas tout à fait.", quizFail: "Je n'ai pas réussi à créer le quiz. Réessaie dans un moment.", quizNeedBrain: "Le quiz a besoin du cerveau de Friend. Vérifie ta connexion ou Réglages > Cerveau.",
+  quizQ: (i, n) => `Question ${i} sur ${n}`,
+  brTitle: "Respirer", brTile: ["🫧", "Respirer", "1 minute pour se calmer"], brLead: "Suis le cercle : il grandit quand tu inspires, il rapetisse quand tu expires. Une minute, c'est tout.",
+  brIn: "Inspire…", brHold: "Garde…", brOut: "Expire…", brStart: "Commencer", brDone: "Bravo. Comment tu te sens maintenant ?", brAgain: "Encore une minute",
+  focSound: "Son de pluie pendant le focus"
+};
+const en = {
+  btn: "✨ For you", title: "For you",
+  tiles: { garden: ["🌱", "Mood garden", "Today's mood becomes a plant"], capsule: ["💌", "Time capsule", "A message for your future self"], focus: ["🎯", "Focus mode", "Focus, and your Friend moves with you"], quiz: ["🧠", "Quick quiz", "Review any topic in 5 questions"] },
+  back: "‹ Back",
+  capTitle: "Time capsule", capLead: "Write to your future self. The capsule stays closed until the date you pick, even for you.",
+  capPh: "Dear future me…", capWhen: "Open in…", capWhens: [["7", "1 week"], ["30", "1 month"], ["182", "6 months"], ["365", "1 year"]], capDate: "or on a specific date",
+  capSeal: "Seal the capsule", capSealed: "Capsule sealed! See you on", capList: "My capsules", capNone: "No capsules yet.",
+  capLocked: d => `Sealed · opens ${d}`, capOpen: "Open", capOpened: "Opened", capFrom: d => `Written on ${d}`, capReady: "A capsule is waiting for you! Open it in ✨ For you.",
+  capDelete: "Delete", capSure: "Sure?", inDays: n => n <= 1 ? "tomorrow" : `in ${n} days`,
+  focTitle: "Focus mode", focLead: "Pick a length and go. Your Friend crosses the map while you work. If you leave Friend, it stops and waits for you.",
+  focLen: "Length", focStart: "Let's go", focPause: "Pause", focResume: "Resume", focStop: "Stop",
+  focWaiting: "Your Friend is waiting… come back when you're ready.", focDone: n => `Well done! +${n} ⭐`, focStars: n => `${n} ⭐ earned`,
+  focUnlock: "New accessory unlocked:", focNext: (n, a) => `${n} more ⭐ to unlock: ${a}`, focAll: "You've unlocked every accessory!",
+  focTodo: "What are you working on? (optional)", focMinutes: m => `${m} min`,
+  quizTitle: "Quick quiz", quizLead: "Type a topic or paste your notes: Friend makes 5 questions.",
+  quizPh: "E.g. photosynthesis, fractions, Ancient Rome… or paste your notes", quizGo: "Make the quiz",
+  quizMaking: "Friend is making your questions…", quizNext: "Next question", quizEnd: "See my score", quizAgain: "Another quiz",
+  quizScore: (s, n) => `${s} / ${n}`, quizCheer: s => s >= 5 ? "Perfect, you've got it!" : s >= 3 ? "Nice work, almost there!" : "Want to review a bit more together?",
+  quizGood: "Correct!", quizBad: "Not quite.", quizFail: "I couldn't make the quiz. Try again in a moment.", quizNeedBrain: "The quiz needs Friend's brain. Check your connection or Settings > Brain.",
+  quizQ: (i, n) => `Question ${i} of ${n}`,
+  brTitle: "Breathe", brTile: ["🫧", "Breathe", "1 minute to calm down"], brLead: "Follow the circle: it grows as you breathe in and shrinks as you breathe out. Just one minute.",
+  brIn: "Breathe in…", brHold: "Hold…", brOut: "Breathe out…", brStart: "Start", brDone: "Well done. How do you feel now?", brAgain: "One more minute",
+  focSound: "Rain sound during focus"
+};
+const es = {
+  btn: "✨ Para ti", title: "Para ti",
+  tiles: { garden: ["🌱", "Jardín de ánimo", "Tu ánimo de hoy se vuelve una planta"], capsule: ["💌", "Cápsula del tiempo", "Un mensaje para tu yo del futuro"], focus: ["🎯", "Modo Focus", "Concéntrate y tu Friend avanza contigo"], quiz: ["🧠", "Quiz exprés", "Repasa cualquier tema en 5 preguntas"] },
+  back: "‹ Volver",
+  capTitle: "Cápsula del tiempo", capLead: "Escribe a tu yo del futuro. La cápsula queda cerrada hasta la fecha elegida, incluso para ti.",
+  capPh: "Querido yo del futuro…", capWhen: "Abrir en…", capWhens: [["7", "1 semana"], ["30", "1 mes"], ["182", "6 meses"], ["365", "1 año"]], capDate: "o en una fecha concreta",
+  capSeal: "Sellar la cápsula", capSealed: "¡Cápsula sellada! Nos vemos el", capList: "Mis cápsulas", capNone: "Aún no hay cápsulas.",
+  capLocked: d => `Sellada · se abre ${d}`, capOpen: "Abrir", capOpened: "Abierta", capFrom: d => `Escrita el ${d}`, capReady: "¡Una cápsula te espera! Ábrela en ✨ Para ti.",
+  capDelete: "Borrar", capSure: "¿Seguro?", inDays: n => n <= 1 ? "mañana" : `en ${n} días`,
+  focTitle: "Modo Focus", focLead: "Elige una duración y empieza. Tu Friend cruza el mapa mientras trabajas. Si sales de Friend, se detiene y te espera.",
+  focLen: "Duración", focStart: "Vamos", focPause: "Pausa", focResume: "Seguir", focStop: "Parar",
+  focWaiting: "Tu Friend te espera… vuelve cuando quieras.", focDone: n => `¡Bravo! +${n} ⭐`, focStars: n => `${n} ⭐ ganadas`,
+  focUnlock: "Nuevo accesorio desbloqueado:", focNext: (n, a) => `${n} ⭐ más para desbloquear: ${a}`, focAll: "¡Has desbloqueado todos los accesorios!",
+  focTodo: "¿En qué trabajas? (opcional)", focMinutes: m => `${m} min`,
+  quizTitle: "Quiz exprés", quizLead: "Escribe un tema o pega tus apuntes: Friend prepara 5 preguntas.",
+  quizPh: "Ej.: la fotosíntesis, las fracciones, la antigua Roma… o pega tus apuntes", quizGo: "Crear el quiz",
+  quizMaking: "Friend prepara tus preguntas…", quizNext: "Siguiente pregunta", quizEnd: "Ver mi puntuación", quizAgain: "Otro quiz",
+  quizScore: (s, n) => `${s} / ${n}`, quizCheer: s => s >= 5 ? "¡Perfecto, lo dominas!" : s >= 3 ? "¡Bien hecho, casi!" : "¿Repasamos un poco más juntos?",
+  quizGood: "¡Correcto!", quizBad: "No exactamente.", quizFail: "No pude crear el quiz. Inténtalo en un momento.", quizNeedBrain: "El quiz necesita el cerebro de Friend. Revisa tu conexión o Ajustes > Cerebro.",
+  quizQ: (i, n) => `Pregunta ${i} de ${n}`,
+  brTitle: "Respirar", brTile: ["🫧", "Respirar", "1 minuto para calmarse"], brLead: "Sigue el círculo: crece cuando inspiras y se encoge cuando espiras. Solo un minuto.",
+  brIn: "Inspira…", brHold: "Mantén…", brOut: "Espira…", brStart: "Empezar", brDone: "Bien hecho. ¿Cómo te sientes ahora?", brAgain: "Otro minuto",
+  focSound: "Sonido de lluvia durante el focus"
+};
+export const A_WORDS = { fr, en, es };

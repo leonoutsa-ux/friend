@@ -1,0 +1,54 @@
+FRIEND · Mettre l'appli en ligne et sur ton téléphone
+=====================================================
+
+Ce dossier EST l'appli Friend. Tu n'as rien à coder : il suffit de le mettre en ligne.
+
+ÉTAPE 1 · Mettre Friend en ligne (gratuit, 5 minutes)
+-----------------------------------------------------
+1. Sur un ordinateur, va sur https://app.netlify.com/drop
+2. Crée un compte gratuit (sinon le site disparaît après une heure).
+3. Glisse le dossier « friend » entier dans la zone de dépôt.
+4. Netlify te donne une adresse du genre https://quelque-chose.netlify.app
+   Tu peux la renommer dans « Site configuration » > « Change site name ».
+
+ÉTAPE 2 · Installer Friend sur ton téléphone
+--------------------------------------------
+Android (Chrome) : ouvre l'adresse > menu ⋮ > « Installer l'appli ».
+iPhone (Safari)  : ouvre l'adresse > bouton Partager > « Sur l'écran d'accueil ».
+
+Au premier lancement, Friend télécharge sa petite IA (environ 1 Go) : utilise le Wi-Fi.
+La petite IA a besoin d'un téléphone récent (Chrome récent sur Android, iOS 26 ou plus sur iPhone).
+Sinon, tu peux brancher un compte Claude dans Réglages > Cerveau.
+
+ÉTAPE 3 · Publier sur Google Play (environ 25 $ US)
+---------------------------------------------------
+1. Va sur https://www.pwabuilder.com et colle l'adresse de ton site.
+2. Clique « Package for stores » > « Android » > « Generate ». Tu reçois un fichier .zip.
+3. Dans ce .zip, il y a un fichier « assetlinks.json ».
+   Crée un dossier « .well-known » dans le dossier « friend », mets-y assetlinks.json,
+   puis glisse à nouveau le dossier « friend » sur Netlify (Deploys > glisser-déposer).
+   Ça prouve à Google que l'appli et le site t'appartiennent.
+4. Crée ton compte sur https://play.google.com/console (paiement unique d'environ 25 $ US).
+5. Crée l'appli « Friend – AI confidant » et téléverse le fichier .aab du .zip.
+6. Remplis la fiche : public 13 ans et plus, catégorie, captures d'écran,
+   et le lien vers la politique de confidentialité : https://TON-SITE/privacy.html
+7. Google demande souvent une période de test avec des testeurs avant la publication publique :
+   suis les étapes indiquées dans la console.
+
+AVANT DE PUBLIER
+----------------
+- Teste bien le mode direct et la petite IA sur ton propre téléphone.
+
+METTRE À JOUR FRIEND PLUS TARD
+------------------------------
+Change les fichiers, puis dans sw.js augmente le numéro de version (friend-v1.0.0 > friend-v1.0.1)
+et glisse de nouveau le dossier sur Netlify. Les téléphones recevront la mise à jour tout seuls.
+
+FRIEND SANS INTERNET (version 2.0)
+----------------------------------
+Dans Réglages > Sans internet, on voit ce qui est déjà sur l'appareil :
+- L'appli elle-même (toujours).
+- Les phrases de secours : Friend répond toujours, même sans IA.
+- La petite IA privée : de 0,4 Go (téléphone) à 4,6 Go (ordinateur avec carte graphique).
+- La voix naturelle et l'écoute privée (pour parler à Friend sans réseau).
+Tout ce que Friend télécharge reste sous 10 Go, et chaque téléchargement peut être supprimé.

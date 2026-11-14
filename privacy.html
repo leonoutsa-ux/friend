@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friend · Confidentialité / Privacy</title>
+<style>
+  :root { --bg: #f1f8ff; --ink: #22305a; --muted: #66739a; --card: #ffffff; --accent: #ffc23a; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #161b36; --ink: #eef2ff; --muted: #a5afd6; --card: #222a52; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "Nunito", "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-left)) 48px; }
+  h1 { font-size: 30px; margin: 0 0 4px; }
+  h2 { font-size: 21px; margin: 28px 0 8px; border-bottom: 3px solid var(--accent); display: inline-block; }
+  section { background: var(--card); border-radius: 20px; padding: 6px 20px 16px; margin-top: 18px; }
+  p, li { max-width: 65ch; }
+  .muted { color: var(--muted); }
+  .fill { background: #fff2c2; color: #3b2600; padding: 0 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Friend</h1>
+  <p class="muted">Dernière mise à jour / Last updated: 14 novembre 2026 · November 14, 2026</p>
+
+  <section lang="fr">
+    <h2>Politique de confidentialité</h2>
+    <p>Friend est un confident IA destiné aux personnes de 13 ans et plus. Friend n'est pas un professionnel de la santé et ne remplace pas une aide professionnelle. En cas d'urgence, appelle le 911.</p>
+    <h3>Ce que Friend garde, et où</h3>
+    <ul>
+      <li>Tes réponses au questionnaire, le look de Friend, tes réglages et de courts souvenirs sont enregistrés <strong>uniquement sur ton téléphone</strong>. Aucun compte n'est créé.</li>
+      <li>Les conversations elles-mêmes ne sont pas enregistrées. Elles disparaissent quand tu fermes Friend.</li>
+      <li>Friend ne garde jamais de souvenirs sur le suicide, l'automutilation, les abus, la violence, la santé, la drogue, la sexualité, les adresses, les numéros ou les mots de passe.</li>
+      <li>Ton code à 4 chiffres est enregistré sous forme chiffrée (empreinte) sur ton téléphone.</li>
+    </ul>
+    <h3>L'intelligence artificielle</h3>
+    <ul>
+      <li>Par défaut, Friend utilise un service d'IA en ligne gratuit, <strong>Pollinations</strong> (pollinations.ai). Tes messages, ton prénom, tes préférences et tes courts souvenirs sont envoyés à ce service pour obtenir les réponses. Friend te le dit avant la première conversation. N'y écris pas ton nom complet, ton adresse, ton école ou tes numéros.</li>
+      <li><strong>Recherche en ligne</strong> : quand tu poses une question de culture générale (« c'est quoi… », « qui est… »), Friend envoie les mots de ta question à <strong>Wikipédia</strong> pour trouver la réponse, et affiche sa source. Tes messages personnels ne sont jamais recherchés. Tu peux couper la recherche dans Réglages &gt; Cerveau.</li>
+      <li>Friend garde sur ton téléphone un petit <strong>carnet</strong> des réponses Wikipédia déjà trouvées (40 au maximum), pour pouvoir répondre aux mêmes questions sans internet. Tu peux le vider dans Réglages &gt; Sans internet, et « Tout oublier » le vide aussi.</li>
+      <li><strong>Sans internet</strong>, Friend répond avec la petite IA privée si elle est téléchargée. Sinon, il utilise des phrases de secours déjà contenues dans l'appli, et il te le dit. Dans les deux cas, rien n'est envoyé.</li>
+      <li>Tu peux choisir à la place la petite IA privée, qui fonctionne directement sur ton téléphone. Elle est téléchargée une fois depuis Hugging Face ; avec elle, tes messages ne quittent pas ton téléphone.</li>
+      <li>Si tu branches ton propre compte Claude (option réservée aux 18 ans et plus), tes messages sont envoyés à Anthropic, sous ton compte et selon les conditions d'Anthropic. Tes préférences et souvenirs ne sont envoyés que si tu actives « Partager mon contexte ».</li>
+      <li>Avant l'envoi à l'IA en ligne, Friend <strong>retire automatiquement</strong> de tes messages les courriels, numéros de téléphone, codes postaux et adresses.</li>
+      <li>Tout ce qui voyage sur internet est <strong>codé (chiffré, HTTPS)</strong> : si quelqu'un interceptait un message en route, il ne verrait qu'une suite de caractères illisibles.</li>
+    </ul>
+    <h3>La voix</h3>
+    <ul>
+      <li>En mode direct, ta voix est transformée en texte par le service vocal de ton téléphone. Selon l'appareil, ce traitement se fait sur le téléphone ou passe par Google ou Apple. Le son n'est pas gardé par Friend.</li>
+      <li><strong>Écoute privée</strong> (option, dans Réglages &gt; Voix) : ta voix est transformée en texte sur ton appareil par un modèle libre (Whisper), téléchargé une fois depuis Hugging Face. Avec elle, ta voix ne passe par aucun service en ligne, et le mode direct marche sans internet.</li>
+      <li>Les réponses de Friend sont lues par une voix libre (Piper), téléchargée une fois et utilisée sur ton téléphone, ou par la voix intégrée du téléphone.</li>
+    </ul>
+    <h3>Ce que Friend ne fait pas</h3>
+    <ul>
+      <li>Pas de publicité, pas de pisteurs, pas de statistiques d'utilisation, pas de vente de données.</li>
+      <li>Friend n'accède pas à tes messages, à tes autres applis ni à tes fichiers.</li>
+    </ul>
+    <h3>Tes droits</h3>
+    <p>Tu peux voir tout ce que Friend sait de toi dans Réglages, et tout effacer à tout moment avec « Tout oublier ». Désinstaller Friend efface aussi toutes ses données.</p>
+    <h3>Sécurité</h3>
+    <ul>
+      <li>Friend n'a pas de serveur à lui : nous ne gardons aucune copie de tes conversations, de tes souvenirs ou de ton profil. Il n'y a donc pas de grande base de données à voler.</li>
+      <li>Friend ne construit pas de profil de ta personnalité ou de tes faiblesses. Ses courts souvenirs sont visibles dans Réglages, et tu peux les effacer un par un.</li>
+      <li>Personne ne peut modifier à distance la mémoire de Friend : elle vit seulement sur ton téléphone.</li>
+      <li>Friend ne met aucune photo, aucun enregistrement ni aucun fichier à toi sur internet.</li>
+    </ul>
+    <h3>Signaler un problème de sécurité</h3>
+    <p>Si tu trouves une faille dans Friend, écris à <a href="mailto:leonoutsa@gmail.com">leonoutsa@gmail.com</a>. On te répondra et on te tiendra au courant jusqu'à la correction. On ne poursuivra jamais quelqu'un qui signale une faille de bonne foi. Si un problème touchait tes données, on te préviendrait dans l'appli, avec ce qui s'est passé et ce qui a été corrigé.</p>
+    <h3>Contact</h3>
+    <p>Pour toute question : <a href="mailto:leonoutsa@gmail.com">leonoutsa@gmail.com</a></p>
+  </section>
+
+  <section lang="en">
+    <h2>Privacy policy</h2>
+    <p>Friend is an AI confidant for people aged 13 and up. Friend is not a health professional and does not replace professional help. In an emergency, call 911.</p>
+    <h3>What Friend keeps, and where</h3>
+    <ul>
+      <li>Your questionnaire answers, Friend's look, your settings and short memories are saved <strong>only on your phone</strong>. No account is created.</li>
+      <li>Conversations themselves are not saved. They disappear when you close Friend.</li>
+      <li>Friend never keeps memories about suicide, self-harm, abuse, violence, health, drugs, sexuality, addresses, numbers or passwords.</li>
+      <li>Your 4-digit code is stored as a fingerprint (hash) on your phone.</li>
+    </ul>
+    <h3>The AI</h3>
+    <ul>
+      <li>By default, Friend uses a free online AI service, <strong>Pollinations</strong> (pollinations.ai). Your messages, first name, preferences and short memories are sent to that service to get the replies. Friend tells you this before the first conversation. Don't write your full name, address, school or phone numbers.</li>
+      <li><strong>Online search</strong>: when you ask a general-knowledge question ("what is…", "who is…"), Friend sends the words of your question to <strong>Wikipedia</strong> to find the answer, and shows its source. Your personal messages are never searched. You can turn search off in Settings &gt; Brain.</li>
+      <li>Friend keeps a small <strong>notebook</strong> on your phone of the Wikipedia answers it already found (40 at most), so it can answer the same questions offline. You can empty it in Settings &gt; Without internet, and "Forget everything" empties it too.</li>
+      <li><strong>Without internet</strong>, Friend answers with the small private AI if it has been downloaded. Otherwise it uses backup sentences already included in the app, and tells you so. Either way, nothing is sent.</li>
+      <li>You can choose the small private AI instead, which runs right on your phone. It is downloaded once from Hugging Face; with it, your messages don't leave your phone.</li>
+      <li>If you connect your own Claude account (an option for ages 18 and up), your messages are sent to Anthropic, under your account and Anthropic's terms. Your preferences and memories are only sent if you turn on "Share my context".</li>
+      <li>Before sending to the online AI, Friend <strong>automatically removes</strong> e-mails, phone numbers, postal codes and addresses from your messages.</li>
+      <li>Everything that travels over the internet is <strong>encoded (encrypted, HTTPS)</strong>: if someone intercepted a message on the way, they would only see unreadable characters.</li>
+    </ul>
+    <h3>Voice</h3>
+    <ul>
+      <li>In live mode, your voice is turned into text by your phone's speech service. Depending on the device, this happens on the phone or goes through Google or Apple. Friend doesn't keep the audio.</li>
+      <li><strong>Private hearing</strong> (optional, in Settings &gt; Voice): your voice is turned into text on your device by an open model (Whisper), downloaded once from Hugging Face. With it, your voice goes through no online service, and live mode works offline.</li>
+      <li>Friend's replies are read by a free voice (Piper), downloaded once and used on your phone, or by your phone's built-in voice.</li>
+    </ul>
+    <h3>What Friend doesn't do</h3>
+    <ul>
+      <li>No ads, no trackers, no usage analytics, no selling of data.</li>
+      <li>Friend doesn't access your messages, other apps or files.</li>
+    </ul>
+    <h3>Your rights</h3>
+    <p>You can see everything Friend knows about you in Settings, and erase it all anytime with "Forget everything". Uninstalling Friend also erases all its data.</p>
+    <h3>Security</h3>
+    <ul>
+      <li>Friend has no server of its own: we keep no copy of your conversations, memories or profile. So there is no big database to steal.</li>
+      <li>Friend doesn't build a profile of your personality or weaknesses. Its short memories are visible in Settings, and you can delete them one by one.</li>
+      <li>No one can change Friend's memory remotely: it lives only on your phone.</li>
+      <li>Friend never puts your photos, recordings or files on the internet.</li>
+    </ul>
+    <h3>Report a security problem</h3>
+    <p>If you find a security flaw in Friend, write to <a href="mailto:leonoutsa@gmail.com">leonoutsa@gmail.com</a>. We'll reply and keep you posted until it's fixed. We will never take action against anyone who reports a flaw in good faith. If a problem ever affected your data, we'd tell you in the app, with what happened and what was fixed.</p>
+    <h3>Contact</h3>
+    <p>Questions: <a href="mailto:leonoutsa@gmail.com">leonoutsa@gmail.com</a></p>
+  </section>
+</main>
+</body>
+</html>

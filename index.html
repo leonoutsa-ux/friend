@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffc23a">
+<meta name="description" content="Friend, un confident IA bienveillant qui t'écoute sans te juger.">
+<title>Friend · un confident IA qui t'écoute</title>
+<link rel="canonical" href="https://friend-confident.netlify.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Friend">
+<meta property="og:url" content="https://friend-confident.netlify.app/">
+<meta property="og:title" content="Friend · un confident IA qui t'écoute, sans te juger">
+<meta property="og:description" content="Gratuit, sans compte et sans pub. Parle ou écris à Friend quand tu en as besoin ; tes souvenirs restent sur ton téléphone.">
+<meta property="og:image" content="https://friend-confident.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Friend, un petit visage jaune souriant, et le texte : un confident IA qui t'écoute, sans te juger.">
+<meta property="og:locale" content="fr_CA">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Friend">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-hue="sun">
+<div class="app">
+  <header id="top" hidden>
+    <div class="brand">
+      <div class="avatar sm" id="avTop"></div>
+      <div><h1>Friend</h1><div class="bond" id="bond"></div></div>
+    </div>
+    <div class="tools">
+      <button class="ghost" id="gardenBtn" type="button"></button>
+      <button class="ghost" id="modeBtn" type="button"></button>
+      <button class="ghost" id="setBtn" type="button"></button>
+    </div>
+  </header>
+
+  <section class="view onb" id="vOnb" hidden></section>
+
+  <section class="view center" id="vPinAsk" hidden>
+    <div class="avatar lg" data-avatar></div>
+    <h2 class="q" id="pinAskTitle"></h2>
+    <p id="pinAskText"></p>
+    <button class="primary" id="pinYes" type="button"></button>
+    <button class="link" id="pinLater" type="button"></button>
+  </section>
+
+  <section class="view center" id="vPin" hidden>
+    <div class="avatar lg" data-avatar></div>
+    <h2 class="q" id="pinTitle"></h2>
+    <div class="dots" id="pinDots"><i></i><i></i><i></i><i></i></div>
+    <p class="msg-err" id="pinMsg" aria-live="polite"></p>
+    <div class="pad" id="pad"></div>
+    <div id="pinExtra"></div>
+  </section>
+
+  <div class="gate" id="gate" hidden></div>
+
+  <section class="view direct" id="vDirect" hidden>
+    <button class="stage" id="stage" type="button" data-state="off">
+      <span class="ring" aria-hidden="true"></span>
+      <div class="avatar xl" data-avatar></div>
+    </button>
+    <p class="status" id="status" aria-live="polite"></p>
+    <p class="heard" id="heard"></p>
+    <p class="said" id="said" aria-live="polite"></p>
+    <div class="dcontrols"><button class="round" id="micBtn" type="button">🎙</button></div>
+    <p class="vnote" id="vnote"></p>
+  </section>
+
+  <section class="view" id="vChat" hidden>
+    <div id="log" aria-live="polite"></div>
+    <form id="form">
+      <label for="box" style="position:absolute;left:-9999px">Message</label>
+      <textarea id="box" rows="1"></textarea>
+      <button class="send" id="send" type="submit" aria-label="Envoyer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </section>
+
+  <div class="helpbar" id="helpbar" hidden><button class="helplink" id="helpToggle" type="button"></button></div>
+</div>
+
+<div class="sheet" id="sheetHelp" hidden><div class="sheet-card helpcard" id="helpBody"></div></div>
+<div class="sheet" id="sheetSet" hidden><div class="sheet-card" id="setBody"></div></div>
+<div class="sheet" id="sheetGarden" hidden><div class="sheet-card" id="gardenBody"></div></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://friend-confident.netlify.app/sitemap.xml
+Sitemap: https://leonoutsa-ux.github.io/friend/sitemap.xml

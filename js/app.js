@@ -73,7 +73,8 @@ function show(id) {
 
 let toastTimer;
 // Lets people pass Friend on to a friend: the phone's share sheet, or a copied link.
-const SHARE_URL = "https://friend-confident.netlify.app/";
+// The address people share is wherever this copy of Friend is hosted.
+const SHARE_URL = /^https?:/.test(location.protocol) ? new URL("./", location.href).href : "https://leonoutsa-ux.github.io/friend/";
 async function shareFriend() {
   const data = { title: "Friend", text: T.shareText, url: SHARE_URL };
   if (navigator.share) { try { await navigator.share(data); return; } catch (e) { if (e?.name === "AbortError") return; } }

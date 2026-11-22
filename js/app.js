@@ -6,13 +6,14 @@ import { voice } from "./voice.js";
 import { ears, EARS_MB } from "./ears.js";
 import { heartReply, remember, recall, knownCount, forgetKnown } from "./offline.js";
 import { gleanMemories, addMemories } from "./notes.js";
+import { packAvailable, packInfo, downloadPack, removePack, firstSentences } from "./pack.js";
 import { renderGarden, plantedToday } from "./garden.js";
 import { renderActivities, readyCapsules, challengeDone, W } from "./activities.js";
 import { UNLOCKS } from "./avatar.js";
 import { searchQuery, lookup, searchNote } from "./search.js";
 import { X, checkBadges, badgeToast } from "./extras.js";
 
-const VERSION = "2.1.0";
+const VERSION = "2.2.0";
 const KEY = "friend.v1";
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const x = document.createElement(tag); if (cls) x.className = cls; if (text != null) x.textContent = text; return x; };
@@ -459,7 +460,7 @@ async function respondInner(text, { onText, voiceMode, onStatus }) {
     turns.push({ role: "assistant", content: final });
     if (userCount % 4 === 0) learnDue = true;
     scheduleLearn();
-    return { text: final, source: found ? { title: found.title, url: found.url, saved: !!found.saved } : null };
+    return { text: final, source: found ? { title: found.title, url: found.url, saved: !!found.saved, pack: !!found.pack } : null };
   } catch (e) {
     if (e?.name === "AbortError") { turns.pop(); return { aborted: true }; }
     if (e?.code === "key") { turns.pop(); return { error: T.keyBad }; }
@@ -468,13 +469,15 @@ async function respondInner(text, { onText, voiceMode, onStatus }) {
     // No internet, no AI awake, or the free service is down: Friend still answers, with its
     // backup sentences, and says so honestly.
     if (e?.code !== "busy" && e?.code !== "notready" && navigator.onLine) console.error(e);
-    const simple = heartReply(text, { name: P.prefs.name, n: userCount, severe, crisis: T.crisisText });
+    // A question the notebook or the knowledge pack can answer gets that answer, word for word from its source.
+    const simple = found && !severe ? `${X().knowSays(found.title)} ${firstSentences(found.extract)}`
+      : heartReply(text, { name: P.prefs.name, n: userCount, severe, crisis: T.crisisText });
     turns.push({ role: "assistant", content: simple });
     onText?.(simple);
     // With no AI to write memories, Friend still notes the simple things it is told.
     const learned = !severe && addMemories(P.memories ||= [], gleanMemories(text), MAX_MEM) > 0;
     if (learned) { save(); if (mode !== "chat") toast(T.learned); }
-    return { text: simple, simple: true, learned, why: navigator.onLine ? "busy" : "offline" };
+    return { text: simple, simple: true, learned, why: navigator.onLine ? "busy" : "offline", source: found && !severe ? { title: found.title, url: found.url, saved: !!found.saved, pack: !!found.pack } : null };
   } finally { ctl = null; }
 }
 
@@ -590,7 +593,7 @@ async function talk(text) {
     out.textContent = r.text;
     addReadAloud(out, r.text);
     if (r.source) {
-      const a = el("a", "src", `${r.source.saved ? X().sourceSaved : X().source} · ${r.source.title}`); a.href = r.source.url; a.target = "_blank"; a.rel = "noopener";
+      const a = el("a", "src", `${r.source.pack ? X().sourcePack : r.source.saved ? X().sourceSaved : X().source} · ${r.source.title}`); a.href = r.source.url; a.target = "_blank"; a.rel = "noopener";
       log.append(a); log.scrollTop = log.scrollHeight;
     }
     if (r.simple) simpleNotice(r.why);
@@ -861,6 +864,11 @@ function renderOffline(s, button) {
     else list.append(Object.assign(el("li", "na"), { textContent: "– " + x.offNoGpu }));
     n += item(voiceOk, x.offVoice, button(x.offGet, () => { P.voice.natural = true; save(); voice.loadNatural(naturalId()); again(); }, "chip"));
     if (ears.supported) { total++; n += item(earsOk, x.offEars, button(x.offGet + " · " + EARS_MB + (isFR() ? " Mo" : " MB"), () => { ears.load(); again(); }, "chip")); }
+    if (packAvailable()) {
+      total++; const info = packInfo();
+      const get = button(x.offGet, async () => { get.disabled = true; get.textContent = "…"; try { const n = await downloadPack(); toast(x.packDone(n)); } catch (e) { console.warn("pack", e); toast(x.packFail); } again(); }, "chip");
+      n += item(!!info, x.offPack(info?.count), get);
+    }
     if (brain.state === "loading") list.append(el("li", "na", "… " + T.brainState.loading + " " + Math.round((brain.progress || 0) * 100) + " %"));
     score.textContent = x.offScore(n, total);
 
@@ -882,6 +890,7 @@ function renderOffline(s, button) {
       }
     }
     if (earsOk) dl.append(setrow(x.offEars + " · " + EARS_MB + (isFR() ? " Mo" : " MB"), null, button(x.dlDel, async () => { await ears.remove(); P.voice.ears = false; voice.privateEars = false; save(); again(); }, "ghost danger")));
+    if (packAvailable() && packInfo()) dl.append(setrow(x.offPack(packInfo().count), x.offPackSub, button(x.dlDel, () => { removePack(); again(); }, "ghost danger")));
     const k = knownCount();
     if (k) dl.append(setrow(x.offKnow(k), x.offKnowSub, button(x.knowClear, () => { forgetKnown(); again(); }, "ghost danger")));
   })();

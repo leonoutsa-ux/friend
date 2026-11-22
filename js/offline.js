@@ -2,6 +2,7 @@
 // - a "backup heart": simple, kind replies written in advance, picked from what the person says;
 // - a small notebook of things already looked up, so the same question works offline later.
 import { LANG } from "./i18n.js";
+import { packFind } from "./pack.js";
 
 /* ---------- Backup heart ---------- */
 // Each entry: [what to look for, possible replies]. {n} is the person's name (may be empty).
@@ -105,7 +106,8 @@ export function recall(query) {
   const hit = list.find(x => x.k === key)
     // The same subject asked with other words ("c'est quoi un volcan" / "explique-moi les volcans").
     || list.find(x => x.k.startsWith(LANG.code + ":") && norm(x.title).length > 3 && key.includes(norm(x.title)));
-  return hit ? { title: hit.title, extract: hit.extract, url: hit.url, saved: true } : null;
+  // Then the knowledge pack, when it was downloaded.
+  return hit ? { title: hit.title, extract: hit.extract, url: hit.url, saved: true } : packFind(query);
 }
 export function knownCount() { return readKnow().length; }
 export function forgetKnown() { try { localStorage.removeItem(KNOW); } catch {} }

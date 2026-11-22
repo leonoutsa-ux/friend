@@ -16,7 +16,7 @@ function parse(entry) {
 }
 // Keeps whole sentences, up to MAX characters, and drops pronunciation brackets.
 function shorten(text) {
-  let t = String(text || "").replace(/\s*\([^()]*(?:\/|API|prononc|pronunci|écouter|listen)[^()]*\)/gi, "").replace(/\[[^\]]*\]/g, "").replace(/\s+/g, " ").trim();
+  let t = String(text || "").replace(/\s*\([^()]*(?:\/|API|prononc|pronunci|écouter|listen)[^()]*\)/gi, "").replace(/\[[^\]]*\]/g, "").replace(/[\u200b\u200e\u200f\ufeff]/g, "").replace(/\s+/g, " ").trim();
   if (t.length <= MAX) return t;
   const cut = t.slice(0, MAX), end = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "), cut.lastIndexOf("? "));
   return end > 200 ? cut.slice(0, end + 1) : cut.replace(/\s+\S*$/, "") + "…";
@@ -57,6 +57,7 @@ for (const [lang, list] of Object.entries(topics)) {
       if (x.length < 80) { rep.short.push(g.title); continue; }
       const strip = s => s.replace(/\s*\([^)]*\)\s*$/, "");
       const keys = [...new Set([...g.keys.map(strip), strip(p.title)])];
+      if (items.some(it => it.t === p.title)) continue;
       items.push({ t: p.title, k: keys, x });
     }
   }

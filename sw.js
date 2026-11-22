@@ -1,8 +1,8 @@
 // Keeps Friend working offline. Friend's AI model is cached separately by the AI engine itself.
-const CACHE = "friend-v2.1.0";
+const CACHE = "friend-v2.2.0";
 const SHELL = [
   "./", "index.html", "privacy.html", "manifest.webmanifest", "css/style.css",
-  "js/app.js", "js/i18n.js", "js/i18n-es.js", "js/llm-worker.js", "js/avatar.js", "js/garden.js", "js/activities.js", "js/activities-i18n.js", "js/challenges.js", "js/extras.js", "js/extras-i18n.js", "js/search.js", "js/offline.js", "js/quizbank.js", "js/notes.js", "js/games.js", "js/ears.js", "js/ears-worker.js", "js/safety.js", "js/brain.js", "js/voice.js",
+  "js/app.js", "js/i18n.js", "js/i18n-es.js", "js/llm-worker.js", "js/avatar.js", "js/garden.js", "js/activities.js", "js/activities-i18n.js", "js/challenges.js", "js/extras.js", "js/extras-i18n.js", "js/search.js", "js/offline.js", "js/quizbank.js", "js/notes.js", "js/games.js", "js/pack.js", "js/ears.js", "js/ears-worker.js", "js/safety.js", "js/brain.js", "js/voice.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"
 ];
 

@@ -1,5 +1,8 @@
 // Words for web search, the gratitude activity, badges, the weekly letter, the month view and install.
 const fr = {
+  knowSays: t => `Voici ce que dit Wikipédia sur « ${t} » :`, sourcePack: "Source : Wikipédia (pack de savoir)",
+  offPack: n => n ? `Pack de savoir : ${n} sujets d'école` : "Pack de savoir : environ 140 sujets d'école", offPackSub: "Pour répondre aux questions d'école sans internet (textes de Wikipédia)",
+  packDone: n => `Pack de savoir prêt : ${n} sujets.`, packFail: "Le pack n'a pas pu être téléchargé. Vérifie ta connexion et réessaie.",
   readAloud: "Lire à voix haute",
   advStalled: "Cet appareil n'arrive pas à faire tourner la petite IA. Pas grave : Friend utilise l'IA en ligne, et ses phrases de secours sans internet.",
   advSlow: "La petite IA est lente sur cet appareil. Une taille plus légère répondra plus vite.", advLighter: (n, gb) => `Passer à « ${n} » (${gb})`,
@@ -72,6 +75,9 @@ const fr = {
   installBtn: "Installer Friend sur cet appareil", installIos: "Sur iPhone : touche le bouton Partager de Safari, puis « Sur l'écran d'accueil ».", installDone: "Friend est installé !"
 };
 const en = {
+  knowSays: t => `Here is what Wikipedia says about "${t}":`, sourcePack: "Source: Wikipedia (knowledge pack)",
+  offPack: n => n ? `Knowledge pack: ${n} school topics` : "Knowledge pack: about 140 school topics", offPackSub: "To answer school questions offline (texts from Wikipedia)",
+  packDone: n => `Knowledge pack ready: ${n} topics.`, packFail: "The pack couldn't be downloaded. Check your connection and try again.",
   readAloud: "Read aloud",
   advStalled: "This device can't really run the small AI. No worries: Friend uses the online AI, and its backup sentences when offline.",
   advSlow: "The small AI is slow on this device. A lighter size will answer faster.", advLighter: (n, gb) => `Switch to "${n}" (${gb})`,
@@ -138,6 +144,9 @@ const en = {
   installBtn: "Install Friend on this device", installIos: "On iPhone: tap Safari's Share button, then \"Add to Home Screen\".", installDone: "Friend is installed!"
 };
 const es = {
+  knowSays: t => `Esto dice Wikipedia sobre «${t}»:`, sourcePack: "Fuente: Wikipedia (pack de saber)",
+  offPack: n => n ? `Pack de saber: ${n} temas de clase` : "Pack de saber: unos 140 temas de clase", offPackSub: "Para responder preguntas de clase sin internet (textos de Wikipedia)",
+  packDone: n => `Pack de saber listo: ${n} temas.`, packFail: "No se pudo descargar el pack. Revisa tu conexión e inténtalo de nuevo.",
   readAloud: "Leer en voz alta",
   advStalled: "Este dispositivo no logra ejecutar la pequeña IA. No pasa nada: Friend usa la IA en línea, y sus frases de reserva sin internet.",
   advSlow: "La pequeña IA va lenta en este dispositivo. Un tamaño más ligero responderá más rápido.", advLighter: (n, gb) => `Cambiar a «${n}» (${gb})`,

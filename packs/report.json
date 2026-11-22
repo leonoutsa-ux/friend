@@ -1,11 +1,12 @@
 {
  "fr": {
-  "asked": 141,
-  "got": 140,
-  "missing": [],
-  "disambiguation": [
-   "Peinture"
+  "asked": 143,
+  "got": 141,
+  "missing": [
+   "Peinture artistique",
+   "Art pictural"
   ],
+  "disambiguation": [],
   "short": [],
   "failed": 0
  },
@@ -19,10 +20,8 @@
  },
  "es": {
   "asked": 139,
-  "got": 138,
-  "missing": [
-   "Estación (climatología)"
-  ],
+  "got": 139,
+  "missing": [],
   "disambiguation": [],
   "short": [],
   "failed": 0

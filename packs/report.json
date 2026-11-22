@@ -1,0 +1,30 @@
+{
+ "fr": {
+  "asked": 141,
+  "got": 140,
+  "missing": [],
+  "disambiguation": [
+   "Peinture"
+  ],
+  "short": [],
+  "failed": 0
+ },
+ "en": {
+  "asked": 137,
+  "got": 137,
+  "missing": [],
+  "disambiguation": [],
+  "short": [],
+  "failed": 0
+ },
+ "es": {
+  "asked": 139,
+  "got": 138,
+  "missing": [
+   "Estación (climatología)"
+  ],
+  "disambiguation": [],
+  "short": [],
+  "failed": 0
+ }
+}

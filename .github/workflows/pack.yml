@@ -1,0 +1,27 @@
+# Rebuilds Friend's offline knowledge pack from Wikipedia when the list of topics changes.
+name: Pack de savoir
+on:
+  push:
+    branches: [main]
+    paths: ["tools/pack-topics.json", "tools/build-pack.mjs", ".github/workflows/pack.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: pack
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/build-pack.mjs
+      - name: Enregistrer le pack
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packs
+          git diff --cached --quiet || git commit -m "Pack de savoir : mise à jour depuis Wikipédia"
+          git pull --rebase
+          git push

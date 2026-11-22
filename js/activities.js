@@ -5,6 +5,7 @@ import { A_WORDS } from "./activities-i18n.js";
 import { avatarSVG, UNLOCKS } from "./avatar.js";
 import { CHALLENGES, CH_WORDS } from "./challenges.js";
 import { surpriseQuiz } from "./quizbank.js";
+import { GAME_KEYS, gameTile, gameTitle, renderGame } from "./games.js";
 import { X, EXTRA_KEYS, extraTile, extraTitle, renderExtra, gratitudeDone } from "./extras.js";
 const CW = () => CH_WORDS[LANG.code] || CH_WORDS.en;
 const isoDay = d => { const x = new Date(d); return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0"); };
@@ -30,7 +31,7 @@ export function renderActivities(root, ctx, view = "home") {
   const w = W(); root.innerHTML = "";
   const head = el("div", "sheet-head");
   if (view !== "home") head.append(btn(w.back, "ghost", () => { stopFocus(); stopBreathe(); renderActivities(root, ctx, "home"); }));
-  head.append(el("h2", "", view === "home" ? w.title : view === "capsule" ? w.capTitle : view === "focus" ? w.focTitle : view === "challenge" ? CW().title : view === "breathe" ? w.brTitle : extraTitle(view) || w.quizTitle));
+  head.append(el("h2", "", view === "home" ? w.title : view === "capsule" ? w.capTitle : view === "focus" ? w.focTitle : view === "challenge" ? CW().title : view === "breathe" ? w.brTitle : gameTitle(view) || extraTitle(view) || w.quizTitle));
   head.append(btn(T.close, "ghost", () => { stopFocus(); stopBreathe(); ctx.close(); }));
   root.append(head);
   if (view === "home") home(root, ctx, w);
@@ -39,6 +40,7 @@ export function renderActivities(root, ctx, view = "home") {
   else if (view === "quiz") quiz(root, ctx, w);
   else if (view === "challenge") challenge(root, ctx, w);
   else if (view === "breathe") breathe(root, ctx, w);
+  else if (GAME_KEYS.includes(view)) renderGame(view, root, ctx, n => addStars(ctx.P, n));
   else renderExtra(view, root, ctx);
 }
 
@@ -68,8 +70,8 @@ function home(root, ctx, w) {
   root.append(strip);
   const grid = el("div", "tiles");
   const ready = readyCapsules(ctx.P).length;
-  for (const key of ["garden", "challenge", "gratitude", "capsule", "focus", "quiz", "breathe", "badges"]) {
-    const [icon, name, sub] = key === "challenge" ? CW().tile : key === "breathe" ? w.brTile : EXTRA_KEYS.includes(key) ? extraTile(key) : w.tiles[key];
+  for (const key of ["garden", "challenge", "gratitude", "capsule", "focus", "quiz", "memory", "word", "breathe", "badges"]) {
+    const [icon, name, sub] = key === "challenge" ? CW().tile : key === "breathe" ? w.brTile : GAME_KEYS.includes(key) ? gameTile(key) : EXTRA_KEYS.includes(key) ? extraTile(key) : w.tiles[key];
     const t = el("button", "tile"); t.type = "button";
     const ic = el("span", "tile-ic", icon);
     const tx = el("span", "tile-tx"); tx.append(el("b", "", name), el("small", "", sub));

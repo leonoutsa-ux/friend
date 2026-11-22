@@ -1,5 +1,9 @@
 // Words for web search, the gratitude activity, badges, the weekly letter, the month view and install.
 const fr = {
+  readAloud: "Lire à voix haute",
+  advStalled: "Cet appareil n'arrive pas à faire tourner la petite IA. Pas grave : Friend utilise l'IA en ligne, et ses phrases de secours sans internet.",
+  advSlow: "La petite IA est lente sur cet appareil. Une taille plus légère répondra plus vite.", advLighter: (n, gb) => `Passer à « ${n} » (${gb})`,
+  advFast: "Ton appareil est rapide ! Il peut sûrement faire tourner une IA plus futée.", advSmarter: (n, gb) => `Essayer « ${n} » (${gb})`,
   quizSurprise: "Quiz surprise (sans internet)", quizOffline: "Sans internet ni petite IA, je ne peux pas créer un quiz sur ton sujet. Essaie le quiz surprise !",
   slHello: n => n ? `Salut ${n},` : "Salut,", slMoods: n => n > 1 ? `Cette semaine, tu as pris le temps de noter ton humeur ${n} fois, et c'est déjà prendre soin de toi.` : "Cette semaine, tu as pris le temps de noter ton humeur, et c'est déjà prendre soin de toi.",
   slGood: n => n > 1 ? `Il y a eu ${n} belles journées, garde-les bien au chaud.` : "Il y a eu une belle journée, garde-la bien au chaud.",
@@ -68,6 +72,10 @@ const fr = {
   installBtn: "Installer Friend sur cet appareil", installIos: "Sur iPhone : touche le bouton Partager de Safari, puis « Sur l'écran d'accueil ».", installDone: "Friend est installé !"
 };
 const en = {
+  readAloud: "Read aloud",
+  advStalled: "This device can't really run the small AI. No worries: Friend uses the online AI, and its backup sentences when offline.",
+  advSlow: "The small AI is slow on this device. A lighter size will answer faster.", advLighter: (n, gb) => `Switch to "${n}" (${gb})`,
+  advFast: "Your device is fast! It can probably run a smarter AI.", advSmarter: (n, gb) => `Try "${n}" (${gb})`,
   quizSurprise: "Surprise quiz (works offline)", quizOffline: "With no internet and no small AI, I can't make a quiz about your topic. Try the surprise quiz!",
   slHello: n => n ? `Hi ${n},` : "Hi,", slMoods: n => n > 1 ? `This week you took the time to note your mood ${n} times, and that is already taking care of yourself.` : "This week you took the time to note your mood, and that is already taking care of yourself.",
   slGood: n => n > 1 ? `There were ${n} good days. Keep them close.` : "There was one good day. Keep it close.",
@@ -130,6 +138,10 @@ const en = {
   installBtn: "Install Friend on this device", installIos: "On iPhone: tap Safari's Share button, then \"Add to Home Screen\".", installDone: "Friend is installed!"
 };
 const es = {
+  readAloud: "Leer en voz alta",
+  advStalled: "Este dispositivo no logra ejecutar la pequeña IA. No pasa nada: Friend usa la IA en línea, y sus frases de reserva sin internet.",
+  advSlow: "La pequeña IA va lenta en este dispositivo. Un tamaño más ligero responderá más rápido.", advLighter: (n, gb) => `Cambiar a «${n}» (${gb})`,
+  advFast: "¡Tu dispositivo es rápido! Seguramente puede con una IA más lista.", advSmarter: (n, gb) => `Probar «${n}» (${gb})`,
   quizSurprise: "Quiz sorpresa (sin internet)", quizOffline: "Sin internet ni pequeña IA no puedo crear un quiz sobre tu tema. ¡Prueba el quiz sorpresa!",
   slHello: n => n ? `Hola ${n}:` : "Hola:", slMoods: n => n > 1 ? `Esta semana te tomaste el tiempo de anotar tu ánimo ${n} veces, y eso ya es cuidarte.` : "Esta semana te tomaste el tiempo de anotar tu ánimo, y eso ya es cuidarte.",
   slGood: n => n > 1 ? `Hubo ${n} días buenos. Guárdalos bien.` : "Hubo un día bueno. Guárdalo bien.",

@@ -5,13 +5,14 @@ import { brain, SIZE_GB, IS_MOBILE, FAST_ENOUGH, MAX_TOTAL_GB } from "./brain.js
 import { voice } from "./voice.js";
 import { ears, EARS_MB } from "./ears.js";
 import { heartReply, remember, recall, knownCount, forgetKnown } from "./offline.js";
+import { gleanMemories, addMemories } from "./notes.js";
 import { renderGarden, plantedToday } from "./garden.js";
 import { renderActivities, readyCapsules, challengeDone, W } from "./activities.js";
 import { UNLOCKS } from "./avatar.js";
 import { searchQuery, lookup, searchNote } from "./search.js";
 import { X, checkBadges, badgeToast } from "./extras.js";
 
-const VERSION = "2.0.0";
+const VERSION = "2.1.0";
 const KEY = "friend.v1";
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const x = document.createElement(tag); if (cls) x.className = cls; if (text != null) x.textContent = text; return x; };
@@ -470,7 +471,10 @@ async function respondInner(text, { onText, voiceMode, onStatus }) {
     const simple = heartReply(text, { name: P.prefs.name, n: userCount, severe, crisis: T.crisisText });
     turns.push({ role: "assistant", content: simple });
     onText?.(simple);
-    return { text: simple, simple: true, why: navigator.onLine ? "busy" : "offline" };
+    // With no AI to write memories, Friend still notes the simple things it is told.
+    const learned = !severe && addMemories(P.memories ||= [], gleanMemories(text), MAX_MEM) > 0;
+    if (learned) { save(); if (mode !== "chat") toast(T.learned); }
+    return { text: simple, simple: true, learned, why: navigator.onLine ? "busy" : "offline" };
   } finally { ctl = null; }
 }
 
@@ -533,6 +537,21 @@ async function compress(how) {
 const log = $("log"), box = $("box"), send = $("send");
 box.placeholder = T.placeholder;
 function bubble(cls, text) { const d = el("div", "msg " + cls, text); log.append(d); log.scrollTop = log.scrollHeight; return d; }
+// A small button under Friend's answer reads it out loud (and stops when tapped again).
+let reading = null;
+function stopReading() { if (reading) { reading.spk.cancel(); voice.stopSpeaking(); reading.btn.classList.remove("on"); reading.btn.setAttribute("aria-pressed", "false"); reading = null; } }
+function addReadAloud(out, text) {
+  if (!voice.canSpeak || !text) return;
+  const b = el("button", "say", "🔊"); b.type = "button"; b.title = X().readAloud; b.setAttribute("aria-label", X().readAloud); b.setAttribute("aria-pressed", "false");
+  b.onclick = () => {
+    const mine = reading?.btn === b; stopReading(); if (mine) return;
+    voice.warmUp(); wakeVoice();
+    const spk = voice.speaker({ lang: T.lang, uri: P.voice.uri, rate: P.voice.rate, natural: P.voice.natural, onDone: () => { if (reading?.btn === b) { b.classList.remove("on"); b.setAttribute("aria-pressed", "false"); reading = null; } } });
+    reading = { btn: b, spk }; b.classList.add("on"); b.setAttribute("aria-pressed", "true");
+    spk.finish(text);
+  };
+  out.after(b); log.scrollTop = log.scrollHeight;
+}
 function note(text, cls = "note") { const d = el("div", cls, text); log.append(d); log.scrollTop = log.scrollHeight; return d; }
 function resetChatLog(first) {
   log.innerHTML = "";
@@ -555,6 +574,7 @@ function syncChatFromTurns() {
 }
 async function talk(text) {
   text = text.trim(); if (!text || busy) return;
+  stopReading();
   busy = true; send.disabled = true; $("chips")?.remove();
   bubble("me", text);
   const out = bubble("ami", ""); out.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
@@ -568,11 +588,13 @@ async function talk(text) {
   clearTimeout(patience);
   if (r.text) {
     out.textContent = r.text;
+    addReadAloud(out, r.text);
     if (r.source) {
       const a = el("a", "src", `${r.source.saved ? X().sourceSaved : X().source} · ${r.source.title}`); a.href = r.source.url; a.target = "_blank"; a.rel = "noopener";
       log.append(a); log.scrollTop = log.scrollHeight;
     }
     if (r.simple) simpleNotice(r.why);
+    if (r.learned) note(T.learned, "learned");
   }
   else { out.remove(); if (r.error) note(r.error); }
   busy = false; send.disabled = false;
@@ -935,6 +957,12 @@ function renderSettings() {
       const r = el("div", "btnrow");
       const tb = button(T.speedTest, async () => { tb.disabled = true; sp.textContent = T.speedTesting; try { await brain.benchmark(); } catch {} paintSpeed(); tb.disabled = false; });
       r.append(tb); s2.append(sp, r);
+      // Advice from the measured speed: a lighter size when it struggles, a smarter one when it flies.
+      const order = brain.sizesFor(), at = order.indexOf(brain.loadedSize), names = Object.fromEntries([...T.sizes, ...X().bigSizes].map(([k, l]) => [k, l]));
+      const move = k => { B.size = k; save(); brain.configure({ size: k }); brain.load(k); renderSettings(); $("sec-brain")?.scrollIntoView({ block: "start" }); };
+      if (brain.stalled) s2.append(el("p", "fine", X().advStalled));
+      else if (brain.speed && brain.speed < FAST_ENOUGH && at > 0) { const a = el("div", "btnrow"); a.append(button(X().advLighter(names[order[at - 1]], gbText(SIZE_GB[order[at - 1]])), () => move(order[at - 1]))); s2.append(el("p", "fine", X().advSlow), a); }
+      else if (brain.speed >= 20 && at >= 0 && at < order.length - 1) { const a = el("div", "btnrow"); a.append(button(X().advSmarter(names[order[at + 1]], gbText(SIZE_GB[order[at + 1]])), () => move(order[at + 1]))); s2.append(el("p", "fine", X().advFast), a); }
     }
     if (B.mode === "auto") s2.append(el("p", "fine", T.onlineText));
   } else if (B.mode === "online") {

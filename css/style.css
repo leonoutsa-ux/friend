@@ -385,3 +385,17 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .word-form .input { flex: 1; min-width: 0; text-transform: uppercase; letter-spacing: .2em; text-align: center; }
 @media (prefers-reduced-motion: reduce) { .mem-card { transition: none; } }
 .gwin { font: 600 22px/1.25 var(--font-display); text-align: center; margin: 10px 0 4px; }
+
+/* ---------- Journal ---------- */
+.jr-warn { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border-radius: 16px; border: 2px dashed var(--line); background: var(--surface); margin: 8px 0; font-size: 14px; }
+.jr-text { min-height: 130px; }
+.jr-moods { display: flex; gap: 8px; margin: 4px 0 10px; }
+.jr-mood { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--line); background: var(--surface); font-size: 22px; line-height: 1; cursor: pointer; }
+.jr-mood.on { border-color: var(--accent); background: var(--accent); }
+.jr-pages { display: grid; gap: 10px; margin-top: 10px; }
+.jr-page { border: 2px solid var(--line); border-radius: 16px; padding: 12px 14px; background: var(--bg); }
+.jr-date { font-size: 13px; color: var(--muted); font-weight: 700; margin: 0 0 6px; }
+.jr-body { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 8px; }
+.jr-body.clip { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+/* Help and one-time notices always come on top of any other sheet. */
+#sheetHelp { z-index: 25; }

@@ -52,3 +52,11 @@ Dans Réglages > Sans internet, on voit ce qui est déjà sur l'appareil :
 - La petite IA privée : de 0,4 Go (téléphone) à 4,6 Go (ordinateur avec carte graphique).
 - La voix naturelle et l'écoute privée (pour parler à Friend sans réseau).
 Tout ce que Friend télécharge reste sous 10 Go, et chaque téléchargement peut être supprimé.
+
+VERSION 2.2 : JOURNAL ET PACK DE SAVOIR
+---------------------------------------
+- Mon journal (dans « Pour toi ») : un journal intime gardé sur l'appareil, jamais lu par l'IA,
+  ouvert avec le code à 4 chiffres quand il y en a un.
+- Pack de savoir (Réglages > Sans internet) : environ 140 sujets d'école pour répondre sans réseau.
+  Les textes viennent de Wikipédia (licence CC BY-SA 4.0). La liste des sujets est dans
+  tools/pack-topics.json ; GitHub refabrique le pack tout seul quand on la change.

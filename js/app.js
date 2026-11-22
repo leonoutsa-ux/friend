@@ -6,6 +6,7 @@ import { voice } from "./voice.js";
 import { ears, EARS_MB } from "./ears.js";
 import { heartReply, remember, recall, knownCount, forgetKnown } from "./offline.js";
 import { gleanMemories, addMemories } from "./notes.js";
+import { JW, journalCount, wipeJournal, exportJournal, importJournal } from "./journal.js";
 import { packAvailable, packInfo, downloadPack, removePack, firstSentences } from "./pack.js";
 import { renderGarden, plantedToday } from "./garden.js";
 import { renderActivities, readyCapsules, challengeDone, W } from "./activities.js";
@@ -31,7 +32,7 @@ function fresh(prefs) {
 }
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch { return null; } }
 function save() { try { localStorage.setItem(KEY, JSON.stringify(P)); } catch {} }
-function wipe() { try { localStorage.removeItem(KEY); } catch {} forgetKnown(); P = null; }
+function wipe() { try { localStorage.removeItem(KEY); } catch {} forgetKnown(); wipeJournal(); P = null; }
 let P = load();
 if (P?.lang) setLang(P.lang);
 if (P && P.voice && P.voice.natural === undefined) P.voice.natural = true;
@@ -218,6 +219,7 @@ function pinFlow(mode, done, cancel) {
       extra.append(p, r);
     };
     extra.append(forgot);
+    if (cancel) { const c = el("button", "link", T.cancel); c.type = "button"; c.onclick = cancel; extra.append(c); }
   } else if (cancel) {
     const c = el("button", "link", T.cancel); c.type = "button"; c.onclick = cancel; extra.append(c);
   }
@@ -1074,6 +1076,7 @@ function renderSettings() {
   else s5.append(el("p", "empty", T.memEmpty));
   if (P.archive) s5.append(el("p", "sub", T.archiveH), el("p", "empty", P.archive));
   s5.append(el("p", "fine", T.memPrivacy));
+  if (journalCount()) s5.append(el("p", "fine", JW().know(journalCount())));
   const ar = el("div", "btnrow");
   ar.append(button(T.newChat, () => { closeSettings(); stopDirect(); turns = []; userCount = 0; resetChatLog(false); setMode(mode); }));
   ar.append(button(T.redo, () => { $("sheetSet").hidden = true; startOnboarding(); }));
@@ -1084,11 +1087,12 @@ function renderSettings() {
   /* --- Backup --- */
   const s7 = sec("backup", T.backupH);
   s7.append(el("p", "fine", T.backupSub));
+  if (journalCount()) s7.append(el("p", "fine", JW().backup));
   const br2 = el("div", "btnrow");
   br2.append(button(T.backupSave, () => {
     const copy = JSON.parse(JSON.stringify(P));
     if (copy.brain) copy.brain.key = "";            // never put the Claude key in a file
-    const blob = new Blob([JSON.stringify({ app: "friend", saved: new Date().toISOString(), profile: copy }, null, 1)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify({ app: "friend", saved: new Date().toISOString(), profile: copy, journal: exportJournal() }, null, 1)], { type: "application/json" });
     const a2 = document.createElement("a"); a2.href = URL.createObjectURL(blob);
     a2.download = `friend-sauvegarde-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.append(a2); a2.click(); a2.remove(); setTimeout(() => URL.revokeObjectURL(a2.href), 4000);
@@ -1103,6 +1107,7 @@ function renderSettings() {
     const sure = button(T.backupYes, () => {
       const key = P.brain?.key || "";
       P = prof; if (P.brain) P.brain.key = key; save(); toast(T.backupOk);
+      if (Array.isArray(data.journal)) importJournal(data.journal);      // older backups have no journal: the current one is kept
       setTimeout(() => location.reload(), 900);
     }, "ghost danger");
     br2.append(el("span", "fine", T.backupSure), sure);
@@ -1127,13 +1132,23 @@ function renderSettings() {
 /* ================= Mood garden ================= */
 function paintGardenBtn() { const b = $("gardenBtn"); b.textContent = W().btn; b.classList.toggle("dot", !!P && (!plantedToday(P) || !challengeDone(P) || readyCapsules(P).length > 0)); }
 function announceBadges() { const fresh = checkBadges(P); if (fresh.length) { save(); setTimeout(() => toast(badgeToast(fresh)), 600); } }
-function closeActivities() { $("sheetGarden").hidden = true; paintGardenBtn(); paintLook(); announceBadges(); }
+// The journal stays open only while the activities sheet is: closing the sheet locks it again.
+let journalOk = false;
+function journalDoor(kind) {
+  const back = view => () => { show(mode === "direct" ? "vDirect" : "vChat"); updateGate(); openActivities(view); };
+  $("sheetGarden").hidden = true; stopDirect();
+  pinFlow(kind, () => { journalOk = true; back("journal")(); }, back(kind === "set" ? "journal" : "home"));
+}
+function closeActivities() { journalOk = false; $("sheetGarden").hidden = true; paintGardenBtn(); paintLook(); announceBadges(); }
 function openGarden() {
   renderGarden($("gardenBody"), P, save, closeActivities);
   $("sheetGarden").hidden = false;
 }
 function openActivities(view = "home") {
-  renderActivities($("gardenBody"), { P, save, brain, toast, openGarden, close: closeActivities }, view);
+  renderActivities($("gardenBody"), {
+    P, save, brain, toast, openGarden, close: closeActivities,
+    hasPin: () => !!P.pin, journalOpen: () => journalOk, unlockJournal: () => journalDoor("unlock"), setPin: () => journalDoor("set"), help: () => openHelp(true)
+  }, view);
   $("sheetGarden").hidden = false;
 }
 $("gardenBtn").onclick = () => openActivities();
